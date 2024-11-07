@@ -124,29 +124,40 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'register.html';
         });
     }
-
-    // Fetch User Data
-    fetch('fetch_user.php')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('username').innerText = data.username;
-        })
-        .catch(error => console.error('Error fetching user data:', error));
-
-    // Fetch Preferences
-    fetch('fetch_preferences.php')
-        .then(response => response.json())
-        .then(data => {
-            const preferencesDiv = document.getElementById('preferences');
-            let output = '<ul>';
-            data.forEach(preference => {
-                output += `<li>Profession: ${preference.profession}, Budget: ₹${preference.budget}, Specifications: ${preference.specifications}</li>`;
-            });
-            output += '</ul>';
-            preferencesDiv.innerHTML = output;
-        })
-        .catch(error => console.error('Error fetching preferences:', error));
-
+    // Fetch User Data fetch
+    ('fetch_user.php') 
+    .then(response => response.json()) .then(data => { const usernameSpan = document.getElementById('username'); 
+        if (usernameSpan) { usernameSpan.innerText = data.username; } else { console.error('Element with ID "username" not found.'); } 
+    }) .catch(error => console.error('Error fetching user data:', error
+    ));
+    document.addEventListener('DOMContentLoaded', function() {
+         const professionForm = document.getElementById('professionForm'); 
+         if (professionForm) { professionForm.addEventListener('submit', function(e) { 
+            e.preventDefault(); const formData = new FormData(professionForm); 
+            fetch('profession.php', { method: 'POST', body: formData }) 
+            .then(response => { if (!response.ok) { throw new Error('Network response was not ok'); 
+            } return response.json(); }) 
+            .then(data => displayResults(data)) .catch(error => console.error('There was a problem with the fetch operation:', error)); 
+        }); }
+    function displayResults(laptops) { 
+        const resultsDiv = document.getElementById('results'); 
+        let output = '<h2>Recommended Laptops</h2>'; 
+        if (laptops.length > 0) { laptops.forEach(function(laptop) { output += ` 
+            <div class="laptop">
+            <h3>${laptop.brand} ${laptop.model}</h3>
+            <p>${laptop.specifications}</p>
+            <p>Price: ₹${laptop.price}</p> </div> `; 
+        }); } else { output += '<p>No laptops found for this profession.</p>'; 
+        } resultsDiv.innerHTML = output; }
+   // Fetch Preferences
+fetch('fetch_preferences.php') 
+.then(response => response.json()) 
+.then(data => { const preferencesDiv = document.getElementById('preferences'); 
+    if (preferencesDiv) { let output = '<ul>'; data.forEach(preference => { 
+        output += `<li>Profession: ${preference.profession}, Budget: ₹${preference.budget}, Specifications: ${preference.specifications}</li>`; 
+    }); output += '</ul>'; preferencesDiv.innerHTML = output; } else { console.error('Element with ID "preferences" not found.'); } }) 
+    .catch(error => console.error('Error fetching preferences:', error
+    ));
     function displayResults(laptops) {
         const resultsDiv = document.getElementById('results');
         let output = '<h2>Recommended Laptops</h2>';
