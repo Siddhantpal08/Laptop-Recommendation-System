@@ -180,20 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error fetching user data:', error));
 
-    // Fetch Preferences
-    fetch('fetch_preferences.php')
-        .then(response => response.json())
-        .then(data => {
-            const preferencesDiv = document.getElementById('preferences');
-            let output = '<ul>';
-            data.forEach(preference => {
-                output += `<li>Profession: ${preference.profession}, Budget: ₹${preference.budget}, Specifications: ${preference.specifications}</li>`;
-            });
-            output += '</ul>';
-            preferencesDiv.innerHTML = output;
-        })
-        .catch(error => console.error('Error fetching preferences:', error));
-
     // Sign In Button Click
     const signInBtn = document.getElementById('signInBtn');
     if (signInBtn) {
