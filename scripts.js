@@ -108,28 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('There was a problem with the fetch operation:', error));
         });
     }
-
-    // Sign In Button Click
-    const signInBtn = document.getElementById('signInBtn');
-    if (signInBtn) {
-        signInBtn.addEventListener('click', function() {
-            window.location.href = 'login.html';
-        });
-    }
-
-    // Register Button Click
-    const registerBtn = document.getElementById('registerBtn');
-    if (registerBtn) {
-        registerBtn.addEventListener('click', function() {
-            window.location.href = 'register.html';
-        });
-    }
-    // Fetch User Data fetch
-    ('fetch_user.php') 
-    .then(response => response.json()) .then(data => { const usernameSpan = document.getElementById('username'); 
-        if (usernameSpan) { usernameSpan.innerText = data.username; } else { console.error('Element with ID "username" not found.'); } 
-    }) .catch(error => console.error('Error fetching user data:', error
-    ));
     document.addEventListener('DOMContentLoaded', function() {
          const professionForm = document.getElementById('professionForm'); 
          if (professionForm) { professionForm.addEventListener('submit', function(e) { 
@@ -149,15 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Price: ₹${laptop.price}</p> </div> `; 
         }); } else { output += '<p>No laptops found for this profession.</p>'; 
         } resultsDiv.innerHTML = output; }
-   // Fetch Preferences
-fetch('fetch_preferences.php') 
-.then(response => response.json()) 
-.then(data => { const preferencesDiv = document.getElementById('preferences'); 
-    if (preferencesDiv) { let output = '<ul>'; data.forEach(preference => { 
-        output += `<li>Profession: ${preference.profession}, Budget: ₹${preference.budget}, Specifications: ${preference.specifications}</li>`; 
-    }); output += '</ul>'; preferencesDiv.innerHTML = output; } else { console.error('Element with ID "preferences" not found.'); } }) 
-    .catch(error => console.error('Error fetching preferences:', error
-    ));
     function displayResults(laptops) {
         const resultsDiv = document.getElementById('results');
         let output = '<h2>Recommended Laptops</h2>';
@@ -185,14 +154,7 @@ if (signInBtn) {
         window.location.href = 'login.html';
     });
 }
-
-// Register Button Click
-const registerBtn = document.getElementById('registerBtn');
-if (registerBtn) {
-    registerBtn.addEventListener('click', function() {
-        window.location.href = 'register.html';
-    });
-}
+})
 document.addEventListener('DOMContentLoaded', function() {
     // ... existing code
 
