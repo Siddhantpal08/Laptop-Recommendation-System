@@ -150,14 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }); } else { output += '<p>No laptops found for this profession.</p>'; 
         } resultsDiv.innerHTML = output; }
    // Fetch Preferences
-fetch('fetch_preferences.php') 
-.then(response => response.json()) 
-.then(data => { const preferencesDiv = document.getElementById('preferences'); 
-    if (preferencesDiv) { let output = '<ul>'; data.forEach(preference => { 
-        output += `<li>Profession: ${preference.profession}, Budget: ₹${preference.budget}, Specifications: ${preference.specifications}</li>`; 
-    }); output += '</ul>'; preferencesDiv.innerHTML = output; } else { console.error('Element with ID "preferences" not found.'); } }) 
-    .catch(error => console.error('Error fetching preferences:', error
-    ));
+   fetch('fetch_preferences.php') .then(response => response.json()) .then(data => { const preferencesDiv = document.getElementById('preferences'); if (preferencesDiv) { let output = '<ul>'; data.forEach(preference => { output += `<li>Profession: ${preference.profession}, Budget: ₹${preference.budget}, Specifications: ${preference.specifications}</li>`; }); output += '</ul>'; preferencesDiv.innerHTML = output; } else { console.error('Element with ID "preferences" not found.'); } }) .catch(error => console.error('Error fetching preferences:', error)); });
     function displayResults(laptops) {
         const resultsDiv = document.getElementById('results');
         let output = '<h2>Recommended Laptops</h2>';
