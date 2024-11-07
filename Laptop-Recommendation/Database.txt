@@ -1,0 +1,30 @@
+CREATE DATABASE laptop_recommendation;
+USE laptop_recommendation;
+CREATE TABLE laptops (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    brand VARCHAR(50) NOT NULL,
+    model VARCHAR(50) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    specifications TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO laptops (brand, model, category, specifications, price)
+VALUES 
+    ('Dell', 'Inspiron 15', 'general', 'Balanced performance, 8GB RAM, 256GB SSD, integrated graphics', 50000.00),
+    ('Apple', 'MacBook Air', 'ultrabook', 'Slim design, long battery life, 8GB RAM, 512GB SSD, integrated graphics', 90000.00),
+    ('Alienware', 'M15', 'gaming', 'High performance graphics, 16GB RAM, 512GB SSD, dedicated graphics', 150000.00);
+CREATE TABLE preferences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    profession VARCHAR(100),
+    budget DECIMAL(10, 2),
+    specifications TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

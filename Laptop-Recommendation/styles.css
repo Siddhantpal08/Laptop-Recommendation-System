@@ -1,10 +1,6 @@
-@font-face {
-    font-family: BalooBhai2;
-    src: url(BalooBhai2-VariableFont_wght.ttf);
-}
 /* Base CSS */
 body {
-    font-family: "Baloo Bhai 2", sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #000000;
     color: white;
     margin: 0;
@@ -12,11 +8,6 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-.baloo-bhai-2 body {
-  font-family: "Baloo Bhai 2", sans-serif;
-  font-optical-sizing: auto;
 }
 /* From Uiverse.io by Yaya12085 */ 
 .radio-inputs {
@@ -175,7 +166,7 @@ hr{
 }
 
 h1 {
-    font-size: 5em;
+    font-size: 4em;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -194,7 +185,7 @@ button {
     box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
     box-sizing: border-box;
     color: #ffffff;
-    display: inline-flex;
+    display: flex;
     font-size: 18px;
     justify-content: center;
     line-height: 50px;
@@ -250,32 +241,17 @@ button {
 
 .info p {
     font-size: 1.5em;
-    line-height: 1;
+    line-height: 2;
 }
 
 .heading_1{
     margin-bottom: 20px;
     font-size: 2em;
-    position: relative;
-    left: 5.5%;
 }
 .info_1{
-    color: #8a8a8a;
-    position: relative;
-    left: 5.5%;
+    color: #969696;
 }
 
-#categoryContent{
-    margin-top: -2em;
-}
-
-.heading_2{
-    margin-bottom: 20px;
-    font-size: 2em;
-    position: relative;
-}
-footer{
-    align-self: center;}
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
     .nav-links {
@@ -388,29 +364,3 @@ footer{
         font-size: 1em;
     }
 }
-/* From Uiverse.io by Jaareet */ 
-.input1 {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
-    font-weight: 500;
-    font-size: .8vw;
-    color: #fff;
-    background-color: rgb(28,28,30);
-    box-shadow: 0 0 .4vw rgba(0,0,0,0.5), 0 0 0 .15vw transparent;
-    border-radius: 0.4vw;
-    border: none;
-    outline: none;
-    padding: 0.4vw;
-    max-width: 190px;
-    transition: .4s;
-  }
-  
-  .input1:hover {
-    box-shadow: 0 0 0 .15vw rgba(255, 255, 255, 0.186);
-  }
-  
-  .input1:focus {
-    box-shadow: 0 0 0 .15vw skyblue;
-  }
-    range{
-        color: gray;
-    }

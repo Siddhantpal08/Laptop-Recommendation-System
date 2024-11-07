@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "2005";
+$password = "siddhant";
 $dbname = "laptop_recommendation";
 $port = 3307;
 // Create connection
