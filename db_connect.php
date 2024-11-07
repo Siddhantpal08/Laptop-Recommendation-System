@@ -1,9 +1,9 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "2005";
+$password = "";
 $dbname = "laptop_recommendation";
-$port = 3307;
+$port = 3306;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 

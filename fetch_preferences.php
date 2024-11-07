@@ -1,18 +1,31 @@
 <?php
+header('Content-Type: application/json');
+
+// Include the database connection file
 include 'db_connect.php';
 
-session_start();
-$user_id = $_SESSION['user_id']; // Assuming user ID is stored in session after login
+// Start session to retrieve the user_id
+session_start(); $_SESSION['user_id'] = 1;
+// Fetch preferences for the logged-in user
+$user_id = $_SESSION['user_id'] ?? 0;
 
-$sql = "SELECT * FROM preferences WHERE user_id = '$user_id'";
-$result = $conn->query($sql);
+if ($user_id == 0) {
+    echo json_encode([]);
+    exit;
+}
+
+$stmt = $conn->prepare("SELECT profession, budget, specifications FROM preferences WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $preferences = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $preferences[] = $row;
-    }
+while ($row = $result->fetch_assoc()) {
+    $preferences[] = $row;
 }
-$conn->close();
+
 echo json_encode($preferences);
+
+$stmt->close();
+$conn->close();
 ?>
