@@ -274,7 +274,8 @@ button {
     font-size: 2em;
     position: relative;
 }
-
+footer{
+    align-self: center;}
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
     .nav-links {
