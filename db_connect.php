@@ -3,7 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "laptop_recommendation";
-$port = 3306;
+$port = 3307;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
