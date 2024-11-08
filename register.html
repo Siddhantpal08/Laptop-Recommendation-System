@@ -3,37 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Laptop Recommendation System</title>
+    <title>Register</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="nav">
-        <input type="text" name="text" class="search-bar" placeholder="Search...">
-            <ul class="nav-links">
-            <div class="radio-inputs">
-                <label class="radio">
-                    <input type="radio" name="radio">
-                    <span class="name"><a href="index.html">Home</a></span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio">
-                    <span class="name"><a href="Category.html">Category</a></span>
-                </label>
-                    
-                <label class="radio">
-                    <input type="radio" name="radio">
-                    <span class="name"> <a href="about.html">About</a></span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" checked="">
-                    <span class="name"><a href="profile.html">login</a></span>
-                </label>
-</div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Category.html">Category</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="profile.html">Profile</a></li>
             </ul>
-    </nav>
-    <hr>
-    <span id="username">Guest</span>
-    <div class="container">
+        </nav>
+    </header>
+    <main>
         <h1>Register</h1>
         <form id="registerForm">
             <label for="username">Username:</label>
@@ -44,9 +28,8 @@
 
             <button type="submit">Register</button>
         </form>
-        <div id="registerResult"></div>
-        <div id="preferences"></div>
-    </div>
+        <p id="registerResult"></p>
+    </main>
     <script src="scripts.js"></script>
 </body>
 </html>
