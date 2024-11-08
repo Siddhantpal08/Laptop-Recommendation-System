@@ -214,3 +214,41 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error fetching preferences:', error));
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // Register Form Submission
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(registerForm);
+
+            fetch('register.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const registerResult = document.getElementById('registerResult');
+                if (registerResult) {
+                    registerResult.innerText = data.message;
+                    if (data.success) {
+                        registerResult.style.color = 'green';
+                        setTimeout(() => {
+                            window.location.href = 'login.html'; // Redirect to login page
+                        }, 1000);
+                    } else {
+                        registerResult.style.color = 'red';
+                    }
+                } else {
+                    console.error('Element with ID "registerResult" not found.');
+                }
+            })
+            .catch(error => console.error('There was a problem with the fetch operation:', error));
+        });
+    }
+});
