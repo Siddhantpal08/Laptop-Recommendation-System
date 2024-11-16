@@ -1,16 +1,21 @@
 <?php
+header('Content-Type: application/json');
 include 'db_connect.php';
 
 $ram = $_POST['ram'] ?? '';
 $storage = $_POST['storage'] ?? '';
-$graphics = $_POST['graphics'] ?? '';
 
-$sql = "SELECT * FROM laptops WHERE specifications LIKE '%$ram%' AND specifications LIKE '%$storage%' AND specifications LIKE '%$graphics%'";
+// Ensure variables are set correctly
+error_log("RAM: $ram, Storage: $storage");
+
+$sql = "SELECT * FROM laptops WHERE specifications LIKE '%$ram%' AND specifications LIKE '%$storage%'";
+error_log("SQL Query: $sql");
+
 $result = $conn->query($sql);
 
 $laptops = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
         $laptops[] = $row;
     }
 } else {
@@ -19,4 +24,3 @@ if ($result->num_rows > 0) {
 $conn->close();
 echo json_encode($laptops);
 ?>
-    

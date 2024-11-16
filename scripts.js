@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Specifications Form Submission
+document.addEventListener('DOMContentLoaded', function() {
     const specificationsForm = document.getElementById('specificationsForm');
     if (specificationsForm) {
         specificationsForm.addEventListener('submit', function(e) {
@@ -66,46 +67,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => displayResults(data))
+            .then(data => {
+                console.log('Response Data:', data); // Log the returned data
+                displayResults(data);
+            })
             .catch(error => console.error('There was a problem with the fetch operation:', error));
         });
     }
 
-    // Login Form Submission
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(loginForm);
-            fetch('login.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const loginResult = document.getElementById('loginResult');
-                if (loginResult) {
-                    loginResult.innerText = data.message;
-                    if (data.success) {
-                        loginResult.style.color = 'green';
-                        setTimeout(() => {
-                            window.location.href = 'profile.html';
-                        }, 1000);
-                    } else {
-                        loginResult.style.color = 'red';
-                    }
-                } else {
-                    console.error('Element with ID "loginResult" not found.');
-                }
-            })
-            .catch(error => console.error('There was a problem with the fetch operation:', error));
-        });
+    function displayResults(laptops) {
+        const resultsDiv = document.getElementById('results');
+        let output = '<h2>Recommended Laptops</h2>';
+        if (Array.isArray(laptops) && laptops.length > 0) {
+            laptops.forEach(function(laptop) {
+                console.log(laptop); // Log each laptop's data
+                output += `
+                    <div class="laptop">
+                        <h3>${laptop.brand} ${laptop.model}</h3>
+                        <p>${laptop.specifications}</p>
+                        <p>Price: ₹${laptop.price}</p>
+                        <p>${laptop.description}</p>
+                    </div>
+                `;
+            });
+        } else if (laptops.message) {
+            output += `<p>${laptops.message}</p>`;
+        } else {
+            output += '<p>No laptops found for these specifications.</p>';
+        }
+        resultsDiv.innerHTML = output;
     }
+});
+
+    
+    
 
     // Profession Form Submission
     const professionForm = document.getElementById('professionForm');
