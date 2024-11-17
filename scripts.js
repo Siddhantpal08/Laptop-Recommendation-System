@@ -103,25 +103,55 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     // Profession Form Submission
-    const professionForm = document.getElementById('professionForm');
-    if (professionForm) {
-        professionForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(professionForm);
-            fetch('profession.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => displayResults(data))
-            .catch(error => console.error('There was a problem with the fetch operation:', error));
-        });
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const professionForm = document.getElementById('professionForm');
+        if (professionForm) {
+            professionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(professionForm);
+    
+                fetch('profession.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    console.log('Received response:', response); // Log the response object
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response Data:', data); // Log the actual response data
+                    displayResults(data);
+                })
+                .catch(error => console.error('There was a problem with the fetch operation:', error));
+            });
+        }
+    
+        function displayResults(laptops) {
+            const resultsDiv = document.getElementById('results');
+            let output = '<h2>Recommended Laptops</h2>';
+            if (Array.isArray(laptops) && laptops.length > 0) {
+                laptops.forEach(function(laptop) {
+                    console.log('Laptop data:', laptop); // Log each laptop's data
+                    output += `
+                        <div class="laptop">
+                            <h3>${laptop.brand} ${laptop.model}</h3>
+                            <p>${laptop.specifications}</p>
+                            <p>Price: ₹${laptop.price}</p>
+                        </div>
+                    `;
+                });
+            } else if (laptops.message) {
+                output += `<p>${laptops.message}</p>`;
+            } else {
+                output += '<p>No laptops found for this profession.</p>';
+            }
+            resultsDiv.innerHTML = output;
+        }
+    });
+    
 
     // Function to Display Results
     function displayResults(laptops) {

@@ -19,6 +19,7 @@ body {
   font-optical-sizing: auto;
 }
 
+
 .radio-inputs {
     position: absolute;
     top: 5px;
@@ -132,6 +133,7 @@ hr{
 .dropdown li a {
     padding: 10px;
 }
+
 
 .search-bar {
     padding: 10px;

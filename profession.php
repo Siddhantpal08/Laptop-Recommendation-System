@@ -1,28 +1,32 @@
 <?php
 header('Content-Type: application/json');
-
-// Include the database connection file
 include 'db_connect.php';
 
-// Ensure the session is started to get the user_id
-session_start();
+// Get the chosen profession from POST data
+$profession = $_POST['profession'] ?? '';
 
-// Fetch preferences for the logged-in user
-$user_id = $_SESSION['user_id'] ?? 0;
+// Ensure variables are set correctly
+error_log("Profession: $profession");
 
-$stmt = $conn->prepare("SELECT profession, budget, specifications FROM preferences WHERE user_id = ?");
-$stmt->bind_param("i", $user_id);
+// Fetch data from laptops table where category matches the chosen profession
+$sql = "SELECT brand, model, specifications, price FROM laptops WHERE category = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $profession);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$preferences = array();
-while ($row = $result->fetch_assoc()) {
-    $preferences[] = $row;
+$laptops = [];
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        error_log(print_r($row, true)); // Log each row's data
+        $laptops[] = $row;
+    }
+} else {
+    error_log('No laptops found for this profession.');
+    $laptops = ['message' => 'No laptops found for this profession.'];
 }
-
-// Return the data in JSON format
-echo json_encode($preferences);
 
 $stmt->close();
 $conn->close();
+echo json_encode($laptops);
 ?>
