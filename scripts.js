@@ -228,3 +228,67 @@ document.addEventListener('DOMContentLoaded', function() {
         resultsDiv.innerHTML = output;
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch User Data
+    fetch('fetch_user.php')
+        .then(response => response.json())
+        .then(data => {
+            const usernameSpan = document.getElementById('username');
+            if (usernameSpan) {
+                usernameSpan.innerText = data.username;
+            } else {
+                console.error('Element with ID "username" not found.');
+            }
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+
+    // Specifications Form Submission
+    const specificationsForm = document.getElementById('specificationsForm');
+    if (specificationsForm) {
+        specificationsForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            console.log('Specifications form submitted'); // Log the form submission event
+            const formData = new FormData(specificationsForm);
+
+            fetch('specifications.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Received data:', data); // Log the received data
+                displayResults(data);
+            })
+            .catch(error => console.error('There was a problem with the fetch operation:', error));
+        });
+    }
+
+    // Function to Display Results
+    function displayResults(laptops) {
+        const resultsDiv = document.getElementById('results');
+        let output = '<h2>Recommended Laptops</h2>';
+        if (Array.isArray(laptops) && laptops.length > 0) {
+            laptops.forEach(function(laptop) {
+                console.log('Laptop data:', laptop); // Log each laptop's data
+                output += `
+                    <div class="laptop">
+                        <h3>${laptop.brand} ${laptop.model}</h3>
+                        <p>${laptop.specifications}</p>
+                        <p>Price: ₹${laptop.price}</p>
+                        <p>${laptop.description}</p>
+                    </div>
+                `;
+            });
+        } else if (laptops.message) {
+            output += `<p>${laptops.message}</p>`;
+        } else {
+            output += '<p>No laptops found for these specifications.</p>';
+        }
+        resultsDiv.innerHTML = output;
+    }
+});
