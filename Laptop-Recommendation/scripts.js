@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>${laptop.brand} ${laptop.model}</h3>
                         <p>${laptop.specifications}</p>
                         <p>Price: ₹${laptop.price}</p>
-                        <hr>
+                        <p>${laptop.description}</p>
                     </div>
                 `;
             });
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>${laptop.brand} ${laptop.model}</h3>
                         <p>${laptop.specifications}</p>
                         <p>Price: ₹${laptop.price}</p>
-                        <hr>
+                        <p>${laptop.description}</p>
                     </div>
                 `;
             });
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>${laptop.brand} ${laptop.model}</h3>
                         <p>${laptop.specifications}</p>
                         <p>Price: ₹${laptop.price}</p>
-                        <hr>
+                        <p>${laptop.description}</p>
                     </div>
                 `;
             });
