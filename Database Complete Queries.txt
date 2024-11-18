@@ -1,0 +1,226 @@
+CREATE DATABASE laptop_recommendation;
+USE laptop_recommendation;
+CREATE TABLE laptops (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    brand VARCHAR(50) NOT NULL,
+    model VARCHAR(50) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    specifications TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO laptops (brand, model, category, specifications, price)
+VALUES 
+    ('Dell', 'Inspiron 15', 'general', 'Balanced performance, 8GB RAM, 256GB SSD, integrated graphics', 50000.00),
+    ('Apple', 'MacBook Air', 'ultrabook', 'Slim design, long battery life, 8GB RAM, 512GB SSD, integrated graphics', 90000.00),
+    ('Alienware', 'M15', 'gaming', 'High performance graphics, 16GB RAM, 512GB SSD, dedicated graphics', 150000.00);
+CREATE TABLE preferences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    profession VARCHAR(100),
+    budget DECIMAL(10, 2),
+    specifications TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+INSERT INTO laptops (id, brand, model, category, specifications, price)
+VALUES
+-- General-Purpose
+(4, 'Acer', 'Aspire 5', 'general', '12GB RAM, 512GB SSD, integrated graphics', 48000.00),
+(5, 'Asus', 'VivoBook 14', 'general', '8GB RAM, 256GB SSD, integrated graphics', 45000.00),
+
+-- Ultrabooks
+(6, 'Apple', 'MacBook Air', 'ultrabook', '8GB RAM, 256GB SSD, M1 chip', 90000.00),
+(7, 'Dell', 'XPS 13', 'ultrabook', '16GB RAM, 512GB SSD, Intel i7, InfinityEdge display', 120000.00),
+(8, 'HP', 'Spectre x360', 'ultrabook', 'Convertible, 16GB RAM, 1TB SSD, OLED display', 140000.00),
+(9, 'Lenovo', 'Yoga Slim 7i', 'ultrabook', '16GB RAM, 512GB SSD, Intel Evo certified', 85000.00),
+(10, 'Asus', 'ZenBook 14', 'ultrabook', '8GB RAM, 256GB SSD, ultra-lightweight design', 75000.00),
+
+-- Gaming
+(11, 'Alienware', 'M15', 'gaming', '16GB RAM, 512GB SSD, RTX 3060 GPU', 150000.00),
+(12, 'MSI', 'Katana GF66', 'gaming', '32GB RAM, 1TB SSD, RTX 3070 GPU', 180000.00),
+(13, 'Asus', 'ROG Zephyrus', 'gaming', '16GB RAM, 1TB SSD, RTX 3080 GPU', 160000.00),
+(14, 'Acer', 'Predator Helios', 'gaming', '32GB RAM, 2TB SSD, RTX 3080 GPU', 200000.00),
+(15, 'HP', 'Omen 15', 'gaming', '16GB RAM, 512GB SSD, RTX 3060 GPU', 140000.00),
+
+-- Workstations
+(16, 'Dell', 'Precision 5570', 'workstation', '32GB RAM, 1TB SSD, RTX A2000 GPU', 250000.00),
+(17, 'HP', 'ZBook Studio', 'workstation', '32GB RAM, 1TB SSD, RTX 5000 GPU', 300000.00),
+(18, 'Lenovo', 'ThinkPad P15', 'workstation', '64GB RAM, 2TB SSD, Quadro RTX 4000 GPU', 280000.00),
+(19, 'Apple', 'MacBook Pro 16', 'workstation', '32GB RAM, 1TB SSD, M1 Pro chip', 320000.00),
+(20, 'Asus', 'ProArt StudioBook', 'workstation', '64GB RAM, 2TB SSD, RTX A5000 GPU', 350000.00),
+
+-- 2-in-1 Laptops
+(21, 'HP', 'Spectre x360', '2in1', '16GB RAM, 1TB SSD, touchscreen, convertible', 140000.00),
+(22, 'Dell', 'XPS 13 2-in-1', '2in1', '16GB RAM, 512GB SSD, touchscreen, Intel i7', 130000.00),
+(23, 'Lenovo', 'Yoga 7i', '2in1', '8GB RAM, 512GB SSD, touchscreen, convertible', 85000.00),
+(24, 'Asus', 'ZenBook Flip', '2in1', '12GB RAM, 512GB SSD, touchscreen, convertible', 75000.00),
+(25, 'Microsoft', 'Surface Pro 8', '2in1', '16GB RAM, 256GB SSD, detachable keyboard', 125000.00),
+
+-- Chromebooks
+(26, 'Google', 'Pixelbook Go', 'chromebook', '8GB RAM, 128GB SSD, ChromeOS', 70000.00),
+(27, 'Acer', 'Chromebook Spin 713', 'chromebook', '8GB RAM, 256GB SSD, touchscreen', 60000.00),
+(28, 'HP', 'Chromebook x360', 'chromebook', '4GB RAM, 64GB eMMC, touchscreen', 40000.00),
+(29, 'Lenovo', 'Chromebook Duet', 'chromebook', '4GB RAM, 64GB eMMC, detachable keyboard', 35000.00),
+(30, 'Asus', 'Chromebook Flip', 'chromebook', '8GB RAM, 128GB SSD, touchscreen', 50000.00),
+
+-- Business Laptops
+(31, 'Dell', 'Latitude 5420', 'business', '16GB RAM, 512GB SSD, Intel vPro certified', 100000.00),
+(32, 'HP', 'EliteBook 840', 'business', '16GB RAM, 512GB SSD, lightweight, durable', 110000.00),
+(33, 'Lenovo', 'ThinkPad X1 Carbon', 'business', '32GB RAM, 1TB SSD, ultralight, long battery life', 150000.00),
+(34, 'Apple', 'MacBook Air', 'business', '16GB RAM, 512GB SSD, M2 chip', 120000.00),
+(35, 'Asus', 'ExpertBook B9', 'business', '16GB RAM, 1TB SSD, ultra-durable, long battery life', 95000.00),
+
+-- Data Analysts
+(36, 'Dell', 'Precision 3551', 'data_analyst', '32GB RAM, 1TB SSD, NVIDIA Quadro P620 GPU', 160000.00),
+(37, 'HP', 'ZBook Firefly', 'data_analyst', '16GB RAM, 1TB SSD, lightweight, durable', 140000.00),
+(38, 'Lenovo', 'ThinkPad P1', 'data_analyst', '64GB RAM, 2TB SSD, Quadro T2000 GPU', 220000.00),
+(39, 'Apple', 'MacBook Pro 14', 'data_analyst', '32GB RAM, 1TB SSD, M1 Pro chip', 250000.00),
+(40, 'Asus', 'ZenBook Pro Duo', 'data_analyst', '32GB RAM, 1TB SSD, dual-screen', 240000.00),
+
+-- Video Editors
+(41, 'Dell', 'XPS 15', 'video_editor', '32GB RAM, 1TB SSD, GTX 1650 Ti GPU', 170000.00),
+(42, 'Apple', 'MacBook Pro 16', 'video_editor', '32GB RAM, 1TB SSD, M1 Max chip', 320000.00),
+(43, 'HP', 'Envy 15', 'video_editor', '16GB RAM, 512GB SSD, GTX 1660 Ti GPU', 140000.00),
+(44, 'Asus', 'ProArt StudioBook', 'video_editor', '64GB RAM, 2TB SSD, RTX 3060 GPU', 260000.00),
+(45, 'MSI', 'Creator 15', 'video_editor', '32GB RAM, 1TB SSD, RTX 3070 GPU', 210000.00),
+
+-- Developers
+(46, 'Apple', 'MacBook Pro 14', 'developer', '32GB RAM, 512GB SSD, M1 Pro chip', 220000.00),
+(47, 'Dell', 'XPS 15', 'developer', '32GB RAM, 1TB SSD, GTX 1650 Ti GPU', 180000.00),
+(48, 'Lenovo', 'ThinkPad X1 Extreme', 'developer', '64GB RAM, 2TB SSD, NVIDIA RTX 3050 Ti', 250000.00),
+(49, 'HP', 'ZBook Studio', 'developer', '16GB RAM, 1TB SSD, ultra-lightweight', 170000.00),
+(50, 'Asus', 'ProArt Studiobook', 'developer', '32GB RAM, 1TB SSD, RTX 3060 GPU', 210000.00),
+
+-- Graphic Designers
+(51, 'Apple', 'MacBook Pro 16', 'graphic_designer', '32GB RAM, 1TB SSD, M1 Max chip', 350000.00),
+(52, 'Dell', 'XPS 17', 'graphic_designer', '32GB RAM, 1TB SSD, RTX 3060 GPU', 250000.00),
+(53, 'Asus', 'ROG Zephyrus Duo', 'graphic_designer', '64GB RAM, 2TB SSD, dual-screen, RTX 3070 GPU', 280000.00),
+(54, 'HP', 'Envy 15', 'graphic_designer', '16GB RAM, 1TB SSD, GTX 1660 Ti GPU', 160000.00),
+(55, 'MSI', 'Creator Z16', 'graphic_designer', '32GB RAM, 1TB SSD, RTX 3060 GPU', 230000.00),
+
+-- Writers
+(56, 'Apple', 'MacBook Air', 'writer', '8GB RAM, 256GB SSD, M2 chip, lightweight', 110000.00),
+(57, 'HP', 'Pavilion x360', 'writer', '8GB RAM, 512GB SSD, touchscreen', 60000.00),
+(58, 'Lenovo', 'IdeaPad Slim 5', 'writer', '16GB RAM, 1TB SSD, backlit keyboard', 70000.00),
+(59, 'Acer', 'Aspire 3', 'writer', '12GB RAM, 512GB SSD, lightweight design', 55000.00),
+(60, 'Asus', 'VivoBook 15', 'writer', '8GB RAM, 256GB SSD, ergonomic keyboard', 50000.00),
+
+-- Students
+(61, 'Dell', 'Inspiron 14', 'student', '8GB RAM, 256GB SSD, integrated graphics', 45000.00),
+(62, 'HP', 'Chromebook 14', 'student', '4GB RAM, 64GB eMMC, ChromeOS', 35000.00),
+(63, 'Lenovo', 'IdeaPad Slim 3', 'student', '8GB RAM, 512GB SSD, lightweight', 40000.00),
+(64, 'Asus', 'VivoBook 14', 'student', '12GB RAM, 512GB SSD, budget-friendly', 50000.00),
+(65, 'Acer', 'Chromebook Spin 311', 'student', '4GB RAM, 64GB eMMC, touchscreen', 30000.00),
+
+-- Teachers
+(66, 'HP', 'EliteBook 840', 'teacher', '16GB RAM, 512GB SSD, long battery life', 110000.00),
+(67, 'Lenovo', 'ThinkPad L14', 'teacher', '8GB RAM, 256GB SSD, durable design', 85000.00),
+(68, 'Dell', 'Latitude 3420', 'teacher', '8GB RAM, 512GB SSD, lightweight', 75000.00),
+(69, 'Acer', 'Aspire 5', 'teacher', '12GB RAM, 1TB SSD, good performance', 60000.00),
+(70, 'Asus', 'ExpertBook B1', 'teacher', '16GB RAM, 512GB SSD, ergonomic design', 95000.00),
+
+-- Researchers
+(71, 'Dell', 'Precision 3550', 'researcher', '32GB RAM, 1TB SSD, Quadro T2000 GPU', 160000.00),
+(72, 'Apple', 'MacBook Pro 14', 'researcher', '32GB RAM, 512GB SSD, M1 Pro chip', 250000.00),
+(73, 'HP', 'ZBook Firefly', 'researcher', '16GB RAM, 1TB SSD, lightweight', 150000.00),
+(74, 'Lenovo', 'ThinkPad P15', 'researcher', '64GB RAM, 2TB SSD, Quadro RTX 4000 GPU', 280000.00),
+(75, 'Asus', 'ZenBook Pro Duo', 'researcher', '32GB RAM, 1TB SSD, dual-screen', 240000.00),
+
+-- Musicians
+(76, 'Apple', 'MacBook Pro 14', 'musician', '16GB RAM, 512GB SSD, M2 chip, Logic Pro compatible', 220000.00),
+(77, 'Asus', 'ROG Zephyrus G14', 'musician', '16GB RAM, 1TB SSD, powerful speakers', 180000.00),
+(78, 'HP', 'Spectre x360', 'musician', '16GB RAM, 1TB SSD, convertible design', 140000.00),
+(79, 'Dell', 'XPS 13', 'musician', '16GB RAM, 512GB SSD, lightweight design', 130000.00),
+(80, 'Microsoft', 'Surface Laptop Studio', 'musician', '32GB RAM, 1TB SSD, versatile design', 210000.00),
+
+-- Marketers
+(81, 'Apple', 'MacBook Air', 'marketer', '8GB RAM, 256GB SSD, M1 chip, lightweight', 95000.00),
+(82, 'Dell', 'Inspiron 15', 'marketer', '16GB RAM, 1TB SSD, integrated graphics', 75000.00),
+(83, 'HP', 'Pavilion 14', 'marketer', '8GB RAM, 512GB SSD, durable design', 65000.00),
+(84, 'Lenovo', 'IdeaPad 5', 'marketer', '12GB RAM, 512GB SSD, business-oriented', 60000.00),
+(85, 'Asus', 'VivoBook 14', 'marketer', '8GB RAM, 512GB SSD, portable', 55000.00),
+
+-- Doctors
+(86, 'Apple', 'MacBook Air', 'doctor', '8GB RAM, 256GB SSD, lightweight design', 100000.00),
+(87, 'HP', 'EliteBook 850', 'doctor', '16GB RAM, 512GB SSD, secure design', 120000.00),
+(88, 'Dell', 'Latitude 7420', 'doctor', '16GB RAM, 1TB SSD, Intel vPro certified', 150000.00),
+(89, 'Lenovo', 'ThinkPad X1 Carbon', 'doctor', '16GB RAM, 512GB SSD, ultra-lightweight', 130000.00),
+(90, 'Asus', 'ExpertBook B7', 'doctor', '12GB RAM, 1TB SSD, durable design', 115000.00),
+
+
+-- Data Analysts
+(96, 'Dell', 'Precision 5550', 'data_analyst', '64GB RAM, 2TB SSD, RTX A2000 GPU', 300000.00),
+(97, 'HP', 'ZBook Studio', 'data_analyst', '32GB RAM, 1TB SSD, ultra-lightweight', 220000.00),
+(98, 'Apple', 'MacBook Pro 14', 'data_analyst', '16GB RAM, 512GB SSD, M1 Pro chip', 250000.00),
+(99, 'Lenovo', 'ThinkPad P1', 'data_analyst', '32GB RAM, 1TB SSD, Quadro RTX 3000', 260000.00),
+(100, 'Asus', 'ZenBook Pro Duo', 'data_analyst', '32GB RAM, 1TB SSD, dual-screen', 240000.00),
+
+-- Project Managers
+(101, 'Apple', 'MacBook Air', 'project_manager', '8GB RAM, 256GB SSD, M1 chip, portable', 95000.00),
+(102, 'Dell', 'Inspiron 15', 'project_manager', '16GB RAM, 1TB SSD, integrated graphics', 85000.00),
+(103, 'HP', 'EliteBook 840', 'project_manager', '16GB RAM, 512GB SSD, business design', 120000.00),
+(104, 'Lenovo', 'ThinkPad E15', 'project_manager', '12GB RAM, 512GB SSD, lightweight', 80000.00),
+(105, 'Asus', 'VivoBook 14', 'project_manager', '16GB RAM, 512GB SSD, slim design', 70000.00),
+
+-- Sales Representatives
+(106, 'Dell', 'Vostro 3400', 'sales_rep', '8GB RAM, 512GB SSD, lightweight', 55000.00),
+(107, 'HP', 'Pavilion 15', 'sales_rep', '12GB RAM, 512GB SSD, backlit keyboard', 60000.00),
+(108, 'Lenovo', 'IdeaPad 5', 'sales_rep', '8GB RAM, 256GB SSD, long battery life', 50000.00),
+(109, 'Asus', 'ExpertBook B1', 'sales_rep', '8GB RAM, 512GB SSD, budget-friendly', 55000.00),
+(110, 'Acer', 'Aspire 3', 'sales_rep', '12GB RAM, 1TB SSD, good performance', 50000.00),
+
+-- Virtual Assistants
+(111, 'Apple', 'MacBook Air', 'virtual_assistant', '8GB RAM, 256GB SSD, M2 chip, lightweight', 90000.00),
+(112, 'HP', 'Spectre x360', 'virtual_assistant', '8GB RAM, 512GB SSD, convertible design', 110000.00),
+(113, 'Lenovo', 'ThinkBook 14', 'virtual_assistant', '12GB RAM, 512GB SSD, lightweight', 80000.00),
+(114, 'Dell', 'Inspiron 14', 'virtual_assistant', '8GB RAM, 256GB SSD, compact design', 75000.00),
+(115, 'Asus', 'VivoBook Flip 14', 'virtual_assistant', '8GB RAM, 256GB SSD, convertible design', 70000.00),
+
+-- Customer Service Representatives
+(116, 'HP', 'Pavilion x360', 'customer_service_rep', '8GB RAM, 512GB SSD, touch-enabled', 60000.00),
+(117, 'Dell', 'Inspiron 15', 'customer_service_rep', '8GB RAM, 256GB SSD, integrated graphics', 55000.00),
+(118, 'Lenovo', 'IdeaPad Slim 5', 'customer_service_rep', '12GB RAM, 512GB SSD, budget-friendly', 50000.00),
+(119, 'Acer', 'Chromebook 14', 'customer_service_rep', '4GB RAM, 64GB eMMC, ChromeOS', 35000.00),
+(120, 'Asus', 'ExpertBook B3', 'customer_service_rep', '8GB RAM, 512GB SSD, ergonomic design', 60000.00),
+
+-- Lawyers
+(121, 'Apple', 'MacBook Air', 'lawyer', '8GB RAM, 512GB SSD, M2 chip, portable', 120000.00),
+(122, 'Dell', 'Latitude 5430', 'lawyer', '16GB RAM, 512GB SSD, business design', 95000.00),
+(123, 'HP', 'EliteBook 850', 'lawyer', '16GB RAM, 1TB SSD, lightweight design', 150000.00),
+(124, 'Lenovo', 'ThinkPad X1 Carbon', 'lawyer', '16GB RAM, 1TB SSD, ultra-lightweight', 160000.00),
+(125, 'Asus', 'ExpertBook B9', 'lawyer', '16GB RAM, 512GB SSD, sleek design', 135000.00),
+
+
+-- Accountants
+(126, 'Apple', 'MacBook Air', 'accountant', '8GB RAM, 512GB SSD, M1 chip, lightweight', 110000.00),
+(127, 'Dell', 'Latitude 5430', 'accountant', '8GB RAM, 256GB SSD, portable', 85000.00),
+(128, 'HP', 'ProBook 450', 'accountant', '12GB RAM, 512GB SSD, backlit keyboard', 90000.00),
+(129, 'Lenovo', 'ThinkPad E15', 'accountant', '8GB RAM, 256GB SSD, budget-friendly', 80000.00),
+(130, 'Asus', 'VivoBook 15', 'accountant', '8GB RAM, 256GB SSD, ergonomic design', 60000.00),
+
+-- Consultants
+(131, 'Apple', 'MacBook Pro 16', 'consultant', '32GB RAM, 1TB SSD, M1 Max chip', 320000.00),
+(132, 'Dell', 'XPS 13', 'consultant', '16GB RAM, 512GB SSD, ultra-portable', 130000.00),
+(133, 'HP', 'EliteBook 845', 'consultant', '16GB RAM, 1TB SSD, long battery life', 150000.00),
+(134, 'Lenovo', 'Yoga Slim 7i', 'consultant', '16GB RAM, 512GB SSD, ultra-slim', 120000.00),
+(135, 'Asus', 'ZenBook 14', 'consultant', '16GB RAM, 1TB SSD, lightweight', 110000.00),
+
+-- Freelancers
+(136, 'Apple', 'MacBook Pro 13', 'freelancer', '16GB RAM, 512GB SSD, M2 chip, portable', 140000.00),
+(137, 'Dell', 'Inspiron 14', 'freelancer', '8GB RAM, 256GB SSD, compact design', 60000.00),
+(138, 'HP', 'Pavilion x360', 'freelancer', '8GB RAM, 512GB SSD, convertible design', 70000.00),
+(139, 'Lenovo', 'ThinkPad E14', 'freelancer', '12GB RAM, 512GB SSD, budget-friendly', 75000.00),
+(140, 'Asus', 'VivoBook Flip 15', 'freelancer', '16GB RAM, 1TB SSD, touch-enabled', 90000.00),
+
+-- Entrepreneurs
+(141, 'Apple', 'MacBook Pro 16', 'entrepreneur', '32GB RAM, 1TB SSD, M1 Max chip', 340000.00),
+(142, 'Dell', 'XPS 15', 'entrepreneur', '32GB RAM, 1TB SSD, RTX 3050 GPU', 220000.00),
+(143, 'HP', 'Spectre x360', 'entrepreneur', '16GB RAM, 1TB SSD, versatile design', 170000.00),
+(144, 'Lenovo', 'ThinkBook Plus', 'entrepreneur', '16GB RAM, 1TB SSD, dual-display', 180000.00),
+(145, 'Asus', 'ZenBook Duo 14', 'entrepreneur', '16GB RAM, 512GB SSD, dual-screen', 190000.00);
